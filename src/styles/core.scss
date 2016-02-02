@@ -1,0 +1,38 @@
+:global {
+  @import 'base';
+  @import 'vendor/normalize';
+
+  // Some best-practice CSS that's useful for most apps
+  // Just remove them if they're not what you want
+  html {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  a {
+    color: #222BD6;
+  }
+  a:hover {
+    color: #05C0C9;
+  }
+  a:visited {
+    color: #1A898E;
+  }
+
+  .x.axis text {
+    transform: rotate(45deg);
+    text-anchor: start !important;
+  }
+}
