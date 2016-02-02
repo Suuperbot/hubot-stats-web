@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 import {LineChart} from 'react-d3-basic'
 
-import classes from './RoomChart.scss'
-
 class RoomChart extends React.Component {
   static propTypes = {
     data: PropTypes.object
