@@ -7,6 +7,11 @@ import _ from 'lodash'
 export const SELECT_ROOM = 'SELECT_ROOM'
 export const INIT_ROOM_STATS = 'INIT_ROOM_STATS'
 export const INIT_ROOMS = 'INIT_ROOMS'
+
+export const SELECT_USER = 'SELECT_USER'
+export const INIT_USER_STATS = 'INIT_USER_STATS'
+export const INIT_USERS = 'INIT_USERS'
+
 export const SELECT_GRANULARITY = 'SELECT_GRANULARITY'
 export const GRANULARITIES = [
   {
@@ -47,6 +52,7 @@ export const selectGranularityAndFetch = (id) => {
     const {stats} = getState()
     dispatch(selectGranularity(id))
     dispatch(fetchRoomStats(stats.selectedRoom))
+    dispatch(fetchUsers())
   }
 }
 export const selectRoomAndFetch = (room) => {
@@ -67,6 +73,29 @@ export const initRooms = createAction(INIT_ROOMS, (rooms) => {
   }
 })
 
+export const selectUser = createAction(SELECT_USER, (name) => {
+  return {
+    name
+  }
+})
+export const initUserStats = createAction(INIT_USER_STATS, (user, stats) => {
+  return {
+    user,
+    stats
+  }
+})
+export const initUsers = createAction(INIT_USERS, (users) => {
+  return {
+    users
+  }
+})
+export const selectUserAndFetch = (user) => {
+  return (dispatch) => {
+    dispatch(selectUser(user))
+    dispatch(fetchUserStats(user))
+  }
+}
+
 export const fetchRooms = () => {
   return (dispatch) => {
     fetch(`http://churchybot.herokuapp.com/hubot/stats/room`)
@@ -78,6 +107,21 @@ export const fetchRooms = () => {
         // load stats for each room
         json.forEach((room) => {
           dispatch(fetchRoomStats(room))
+        })
+      })
+  }
+}
+export const fetchUsers = () => {
+  return (dispatch) => {
+    fetch(`http://churchybot.herokuapp.com/hubot/stats/user`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        dispatch(initUsers(json))
+        // load stats for each room
+        json.forEach((user) => {
+          dispatch(fetchUserStats(user))
         })
       })
   }
@@ -99,15 +143,39 @@ export const fetchRoomStats = (room) => {
   }
 }
 
+export const fetchUserStats = (user) => {
+  return (dispatch, getState) => {
+    const {selectedGranularity} = getState().stats
+    const {granularity, count} = _.find(GRANULARITIES, {id: selectedGranularity})
+    const url = `http://churchybot.herokuapp.com/hubot/stats/user/${user}` +
+                `?granularity=${granularity}&count=${count}`
+    fetch(url)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        dispatch(initUserStats(user, json))
+      })
+  }
+}
+
 export const actions = {
-  selectRoom,
-  selectRoomAndFetch,
   selectGranularity,
   selectGranularityAndFetch,
+
+  selectRoom,
+  selectRoomAndFetch,
   initRooms,
   fetchRooms,
   initRoomStats,
-  fetchRoomStats
+  fetchRoomStats,
+
+  selectUser,
+  selectUserAndFetch,
+  initUsers,
+  fetchUsers,
+  initUserStats,
+  fetchUserStats
 }
 
 // ------------------------------------
@@ -147,11 +215,39 @@ export default handleActions({
         rooms: newRoomState
       }
     )
-  }},
-  {
-    selectedGranularity: 'today',
-    selectedRoom: 'general',
-    roomList: [],
-    rooms: {}
+  },
+  [SELECT_USER]: (state, {payload}) => {
+    return Object.assign(
+      {},
+      state,
+      {selectedUser: payload.name}
+    )
+  },
+  [INIT_USERS]: (state, { payload }) => {
+    const {users} = payload
+    return Object.assign(
+      {},
+      state,
+      {userList: users}
+    )
+  },
+  [INIT_USER_STATS]: (state, { payload }) => {
+    const {user, stats} = payload
+    const newUserState = Object.assign(state.users)
+    newUserState[user] = stats
+    return Object.assign(
+      {},
+      state,
+      {
+        users: newUserState
+      }
+    )
   }
-)
+}, {
+  selectedGranularity: 'today',
+  selectedRoom: 'general',
+  roomList: [],
+  rooms: {},
+  userList: [],
+  users: {}
+})

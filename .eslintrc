@@ -13,8 +13,5 @@
     "__DEBUG__"    : false,
     "__DEBUG_NEW_WINDOW__" : false,
     "__BASENAME__" : false
-  },
-  "rules": {
-    "semi" : [2, "never"]
   }
 }
