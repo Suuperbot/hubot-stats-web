@@ -12,6 +12,10 @@ export const SELECT_USER = 'SELECT_USER'
 export const INIT_USER_STATS = 'INIT_USER_STATS'
 export const INIT_USERS = 'INIT_USERS'
 
+export const INIT_URLS = 'INIT_URLS'
+
+export const INIT_IMAGES = 'INIT_IMAGES'
+
 export const SELECT_GRANULARITY = 'SELECT_GRANULARITY'
 export const GRANULARITIES = [
   {
@@ -73,6 +77,18 @@ export const initRooms = createAction(INIT_ROOMS, (rooms) => {
   }
 })
 
+export const initUrls = createAction(INIT_URLS, (urls) => {
+  return {
+    urls
+  }
+})
+
+export const initImages = createAction(INIT_IMAGES, (images) => {
+  return {
+    images
+  }
+})
+
 export const selectUser = createAction(SELECT_USER, (name) => {
   return {
     name
@@ -126,6 +142,28 @@ export const fetchUsers = () => {
       })
   }
 }
+export const fetchUrls = () => {
+  return (dispatch) => {
+    fetch(`http://churchybot.herokuapp.com/hubot/stats/url`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        dispatch(initUrls(json))
+      })
+  }
+}
+export const fetchImages = () => {
+  return (dispatch) => {
+    fetch(`http://churchybot.herokuapp.com/hubot/stats/image`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        dispatch(initImages(json))
+      })
+  }
+}
 
 export const fetchRoomStats = (room) => {
   return (dispatch, getState) => {
@@ -175,7 +213,13 @@ export const actions = {
   initUsers,
   fetchUsers,
   initUserStats,
-  fetchUserStats
+  fetchUserStats,
+
+  initUrls,
+  fetchUrls,
+
+  initImages,
+  fetchImages
 }
 
 // ------------------------------------
@@ -242,6 +286,24 @@ export default handleActions({
         users: newUserState
       }
     )
+  },
+
+  [INIT_URLS]: (state, { payload }) => {
+    const {urls} = payload
+    return Object.assign(
+      {},
+      state,
+      {urls: urls}
+    )
+  },
+
+  [INIT_IMAGES]: (state, { payload }) => {
+    const {images} = payload
+    return Object.assign(
+      {},
+      state,
+      {images: images}
+    )
   }
 }, {
   selectedGranularity: 'today',
@@ -249,5 +311,7 @@ export default handleActions({
   roomList: [],
   rooms: {},
   userList: [],
-  users: {}
+  users: {},
+  urls: [],
+  images: []
 })
