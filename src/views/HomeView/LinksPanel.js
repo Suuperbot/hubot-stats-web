@@ -25,8 +25,8 @@ class LinksPanel extends React.Component {
         <ul>
           {urls.map((url) => {
             return (
-              <li key={url.url}>
-                <a href={url.url}>{url.url}</a>
+              <li key={url.when}>
+                <a href={url.url}>{url.title || url.url}</a>
               </li>
             )
           })}

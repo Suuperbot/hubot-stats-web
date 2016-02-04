@@ -25,7 +25,7 @@ class LinksPanel extends React.Component {
         <ul>
           {images.map((image) => {
             return (
-              <li key={image.url}>
+              <li key={image.when}>
                 <img src={image.url} />
               </li>
             )
