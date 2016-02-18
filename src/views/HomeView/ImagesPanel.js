@@ -6,7 +6,7 @@ const mapStateToProps = (state) => ({
   images: state.stats.images
 })
 
-class LinksPanel extends React.Component {
+class ImagesPanel extends React.Component {
   static propTypes = {
     images: PropTypes.array,
     fetchImages: PropTypes.func
@@ -22,11 +22,11 @@ class LinksPanel extends React.Component {
     return (
       <div>
         <h2>Recent Images</h2>
-        <ul>
+        <ul style={{height: '500px', overflow: 'scroll'}}>
           {images.map((image) => {
             return (
-              <li key={image.when}>
-                <img src={image.url} />
+              <li key={image.when} style={{padding: '2px'}}>
+                <img src={image.url} width={450} />
               </li>
             )
           })}
@@ -36,4 +36,4 @@ class LinksPanel extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, actions)(LinksPanel)
+export default connect(mapStateToProps, actions)(ImagesPanel)

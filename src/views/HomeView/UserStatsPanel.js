@@ -26,13 +26,10 @@ class UserStatsPanel extends React.Component {
     const {stats} = this.props
     return (
       <div>
-        <h2>User Stats (All Channels)</h2>
-        <div>
-          <UserStatsChart
-            data={stats.users}
-            userList={stats.userList}
-          />
-        </div>
+        <UserStatsChart
+          data={stats.users}
+          userList={stats.userList}
+        />
       </div>
     )
   }

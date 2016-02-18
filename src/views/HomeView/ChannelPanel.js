@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { actions, GRANULARITIES } from '../../redux/modules/stats'
-import RoomChart from './RoomChart.js'
-import cx from 'classnames'
+import { actions } from '../../redux/modules/stats'
+
+import RoomChart from './RoomChart'
 
 const mapStateToProps = (state) => ({
   stats: state.stats,
@@ -15,8 +15,7 @@ class ChannelPanel extends React.Component {
     selectedRoom: PropTypes.string,
     fetchRooms: PropTypes.func,
     fetchRoomStats: PropTypes.func,
-    selectRoomAndFetch: PropTypes.func,
-    selectGranularityAndFetch: PropTypes.func
+    selectRoomAndFetch: PropTypes.func
   };
   componentDidMount () {
     this.props.fetchRooms()
@@ -25,42 +24,12 @@ class ChannelPanel extends React.Component {
     }, 60000)
   }
   render () {
-    const {stats, selectedRoom, selectRoomAndFetch, selectGranularityAndFetch} = this.props
+    const {stats, selectedRoom} = this.props
     return (
       <div>
-        <h2>Channel Stats</h2>
-        <div>
-          <h2>#{selectedRoom}</h2>
-          {GRANULARITIES.map((g) => {
-            return (
-              <button
-                key={g.id}
-                onClick={() => selectGranularityAndFetch(g.id)}
-                className={cx({
-                  btn: true,
-                  'btn-primary': g.id === stats.selectedGranularity,
-                  'btn-default': g.id !== stats.selectedGranularity
-                })}
-              >
-                {g.name}
-              </button>
-            )
-          })}
-          <RoomChart
-            data={stats.rooms[selectedRoom]}
-          />
-          <ul>
-          {stats.roomList.map((room) => {
-            return (
-              <li key={room}>
-                <a onClick={() => selectRoomAndFetch(room)}>
-                  #{room}
-                </a>
-              </li>
-            )
-          })}
-          </ul>
-        </div>
+        <RoomChart
+          data={stats.rooms[selectedRoom]}
+        />
       </div>
     )
   }

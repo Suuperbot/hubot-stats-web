@@ -22,7 +22,7 @@ class LinksPanel extends React.Component {
     return (
       <div>
         <h2>Recent Links</h2>
-        <ul>
+        <ul style={{height: '500px', overflow: 'scroll'}}>
           {urls.map((url) => {
             return (
               <li key={url.when}>

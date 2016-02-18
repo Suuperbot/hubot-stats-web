@@ -21,9 +21,9 @@ class RoomChart extends React.Component {
       <LineChart
         data={chartData}
         width={550}
-        height={300}
+        height={400}
         margins={{
-          top: 25,
+          top: 100,
           bottom: 60,
           right: 25,
           left: 50
