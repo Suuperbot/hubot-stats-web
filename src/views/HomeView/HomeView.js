@@ -2,7 +2,6 @@ import React from 'react'
 
 import TimespanChooser from './TimespanChooser'
 import ChannelChooser from './ChannelChooser'
-import ChannelPanel from './ChannelPanel'
 import UserStatsPanel from './UserStatsPanel'
 import LinksPanel from './LinksPanel'
 import ImagesPanel from './ImagesPanel'
@@ -24,10 +23,7 @@ export class HomeView extends React.Component {
         </div>
 
         <div className='row'>
-          <div className='col-md-6'>
-            <ChannelPanel />
-          </div>
-          <div className='col-md-6'>
+          <div className='col-md-12'>
             <UserStatsPanel />
           </div>
         </div>

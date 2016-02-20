@@ -63,6 +63,7 @@ export const selectRoomAndFetch = (room) => {
   return (dispatch) => {
     dispatch(selectRoom(room))
     dispatch(fetchRoomStats(room))
+    dispatch(fetchUsers())
   }
 }
 export const initRoomStats = createAction(INIT_ROOM_STATS, (room, stats) => {
@@ -183,9 +184,9 @@ export const fetchRoomStats = (room) => {
 
 export const fetchUserStats = (user) => {
   return (dispatch, getState) => {
-    const {selectedGranularity} = getState().stats
+    const {selectedGranularity, selectedRoom} = getState().stats
     const {granularity, count} = _.find(GRANULARITIES, {id: selectedGranularity})
-    const url = `http://churchybot.herokuapp.com/hubot/stats/user/${user}` +
+    const url = `http://churchybot.herokuapp.com/hubot/stats/user/${user}/room/${selectedRoom}` +
                 `?granularity=${granularity}&count=${count}`
     fetch(url)
       .then((response) => {

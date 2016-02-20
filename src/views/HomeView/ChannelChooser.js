@@ -4,13 +4,15 @@ import { actions } from '../../redux/modules/stats'
 
 const mapStateToProps = (state) => ({
   roomList: state.stats.roomList,
-  selectedRoom: state.stats.selectedRoom
+  selectedRoom: state.stats.selectedRoom,
+  fetchRooms: state.stats.fetchRooms
 })
 
 class ChannelChooser extends React.Component {
   static propTypes = {
     roomList: PropTypes.array,
     selectRoomAndFetch: PropTypes.func,
+    fetchRooms: PropTypes.func,
     selectedRoom: PropTypes.string
   };
   constructor (props) {
@@ -18,8 +20,13 @@ class ChannelChooser extends React.Component {
 
     this.onChange = this.onChange.bind(this)
   }
+  componentDidMount () {
+    this.props.fetchRooms()
+    setInterval(() => {
+      this.props.fetchRooms()
+    }, 60000)
+  }
   onChange (event) {
-    console.log(event.target.value)
     this.props.selectRoomAndFetch(event.target.value)
   }
   render () {

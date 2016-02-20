@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import d3 from 'd3';
 import _ from 'lodash'
 
 import {AreaStackChart} from 'react-d3-basic'
@@ -36,8 +37,8 @@ class UserStatsChart extends React.Component {
     return (
       <AreaStackChart
         data={chartData}
-        width={550}
-        height={400}
+        width={1100}
+        height={500}
         margins={{
           top: 100,
           bottom: 60,
@@ -48,6 +49,7 @@ class UserStatsChart extends React.Component {
         x={(d) => d.timestamp}
         xScale='time'
         innerTickSize={20}
+        categoricalColors={d3.scale.category20()}
       />
     )
   }
