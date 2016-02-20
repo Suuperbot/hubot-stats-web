@@ -121,10 +121,6 @@ export const fetchRooms = () => {
       })
       .then((json) => {
         dispatch(initRooms(json));
-        // load stats for each room
-        json.forEach((room) => {
-          dispatch(fetchRoomStats(room));
-        });
       });
   };
 };
