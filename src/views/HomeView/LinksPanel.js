@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { actions } from '../../redux/modules/stats'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { actions } from '../../redux/modules/stats';
 
 const mapStateToProps = (state) => ({
   urls: state.stats.urls
-})
+});
 
 class LinksPanel extends React.Component {
   static propTypes = {
@@ -12,13 +12,13 @@ class LinksPanel extends React.Component {
     fetchUrls: PropTypes.func
   };
   componentDidMount () {
-    this.props.fetchUrls()
+    this.props.fetchUrls();
     setInterval(() => {
-      this.props.fetchUrls()
-    }, 60000)
+      this.props.fetchUrls();
+    }, 60000);
   }
   render () {
-    const {urls} = this.props
+    const {urls} = this.props;
     return (
       <div>
         <h2>Recent Links</h2>
@@ -28,12 +28,12 @@ class LinksPanel extends React.Component {
               <li key={url.when}>
                 <a href={url.url}>{url.title || url.url}</a>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, actions)(LinksPanel)
+export default connect(mapStateToProps, actions)(LinksPanel);

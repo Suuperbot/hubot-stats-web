@@ -1,22 +1,22 @@
-import React, { PropTypes } from 'react'
-import {LineChart} from 'react-d3-basic'
+import React, { PropTypes } from 'react';
+import {LineChart} from 'react-d3-basic';
 
 class RoomChart extends React.Component {
   static propTypes = {
     data: PropTypes.object
   };
   render () {
-    const {data} = this.props
-    let activity = []
+    const {data} = this.props;
+    let activity = [];
     if (data && data.activity) {
-      activity = data.activity
+      activity = data.activity;
     }
     const chartData = activity.map((chunk) => {
       return {
         timestamp: new Date(chunk[0] * 1000),
         messages: chunk[1]
-      }
-    })
+      };
+    });
     return (
       <LineChart
         data={chartData}
@@ -42,8 +42,8 @@ class RoomChart extends React.Component {
         xScale='time'
         innerTickSize={20}
       />
-    )
+    );
   }
 }
 
-export default RoomChart
+export default RoomChart;

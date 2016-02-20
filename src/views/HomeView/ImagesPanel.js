@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { actions } from '../../redux/modules/stats'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { actions } from '../../redux/modules/stats';
 
 const mapStateToProps = (state) => ({
   images: state.stats.images
-})
+});
 
 class ImagesPanel extends React.Component {
   static propTypes = {
@@ -12,13 +12,13 @@ class ImagesPanel extends React.Component {
     fetchImages: PropTypes.func
   };
   componentDidMount () {
-    this.props.fetchImages()
+    this.props.fetchImages();
     setInterval(() => {
-      this.props.fetchImages()
-    }, 60000)
+      this.props.fetchImages();
+    }, 60000);
   }
   render () {
-    const {images} = this.props
+    const {images} = this.props;
     return (
       <div>
         <h2>Recent Images</h2>
@@ -28,12 +28,12 @@ class ImagesPanel extends React.Component {
               <li key={image.when} style={{padding: '2px'}}>
                 <img src={image.url} width={450} />
               </li>
-            )
+            );
           })}
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, actions)(ImagesPanel)
+export default connect(mapStateToProps, actions)(ImagesPanel);

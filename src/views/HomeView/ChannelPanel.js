@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { actions } from '../../redux/modules/stats'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { actions } from '../../redux/modules/stats';
 
-import RoomChart from './RoomChart'
+import RoomChart from './RoomChart';
 
 const mapStateToProps = (state) => ({
   stats: state.stats,
   selectedRoom: state.stats.selectedRoom
-})
+});
 
 class ChannelPanel extends React.Component {
   static propTypes = {
@@ -18,21 +18,21 @@ class ChannelPanel extends React.Component {
     selectRoomAndFetch: PropTypes.func
   };
   componentDidMount () {
-    this.props.fetchRooms()
+    this.props.fetchRooms();
     setInterval(() => {
-      this.props.fetchRooms()
-    }, 60000)
+      this.props.fetchRooms();
+    }, 60000);
   }
   render () {
-    const {stats, selectedRoom} = this.props
+    const {stats, selectedRoom} = this.props;
     return (
       <div>
         <RoomChart
           data={stats.rooms[selectedRoom]}
         />
       </div>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, actions)(ChannelPanel)
+export default connect(mapStateToProps, actions)(ChannelPanel);

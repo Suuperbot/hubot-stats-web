@@ -7,6 +7,9 @@
   "env"     : {
     "browser" : true
   },
+  "rules": {
+    "semi": [2, "always"],
+  },
   "globals" : {
     "__DEV__"      : false,
     "__PROD__"     : false,

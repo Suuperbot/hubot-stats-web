@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import TimespanChooser from './TimespanChooser'
-import ChannelChooser from './ChannelChooser'
-import UserStatsPanel from './UserStatsPanel'
-import LinksPanel from './LinksPanel'
-import ImagesPanel from './ImagesPanel'
+import TimespanChooser from './TimespanChooser';
+import ChannelChooser from './ChannelChooser';
+import UserStatsPanel from './UserStatsPanel';
+import LinksPanel from './LinksPanel';
+import ImagesPanel from './ImagesPanel';
 
 export class HomeView extends React.Component {
 
@@ -38,8 +38,8 @@ export class HomeView extends React.Component {
         </div>
 
       </div>
-    )
+    );
   }
 }
 
-export default HomeView
+export default HomeView;

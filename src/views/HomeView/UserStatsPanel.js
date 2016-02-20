@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { actions } from '../../redux/modules/stats'
-import UserStatsChart from './UserStatsChart.js'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { actions } from '../../redux/modules/stats';
+import UserStatsChart from './UserStatsChart.js';
 
 const mapStateToProps = (state) => ({
   stats: state.stats,
   selectedUser: state.stats.selectedUser
-})
+});
 
 class UserStatsPanel extends React.Component {
   static propTypes = {
@@ -17,13 +17,13 @@ class UserStatsPanel extends React.Component {
     selectGranularityAndFetch: PropTypes.func
   };
   componentDidMount () {
-    this.props.fetchUsers()
+    this.props.fetchUsers();
     setInterval(() => {
-      this.props.fetchUsers()
-    }, 60000)
+      this.props.fetchUsers();
+    }, 60000);
   }
   render () {
-    const {stats} = this.props
+    const {stats} = this.props;
     return (
       <div>
         <UserStatsChart
@@ -31,8 +31,8 @@ class UserStatsPanel extends React.Component {
           userList={stats.userList}
         />
       </div>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, actions)(UserStatsPanel)
+export default connect(mapStateToProps, actions)(UserStatsPanel);
