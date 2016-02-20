@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
+import LazyLoad from 'react-lazy-load';
 import { connect } from 'react-redux';
+
 import { actions } from '../../redux/modules/stats';
 
 const mapStateToProps = (state) => ({
@@ -25,8 +27,10 @@ class ImagesPanel extends React.Component {
         <ul style={{height: '500px', overflow: 'scroll'}}>
           {images.map((image) => {
             return (
-              <li key={image.when} style={{padding: '2px'}}>
-                <img src={image.url} width={450} />
+              <li key={image.when} style={{minHeight: '200px', padding: '2px'}}>
+                <LazyLoad>
+                  <img src={image.url} width={450}/>
+                </LazyLoad>
               </li>
             );
           })}
