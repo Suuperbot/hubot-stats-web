@@ -16,12 +16,6 @@ class UserStatsPanel extends React.Component {
     selectUserAndFetch: PropTypes.func,
     selectGranularityAndFetch: PropTypes.func
   };
-  componentDidMount () {
-    this.props.fetchUsers();
-    setInterval(() => {
-      this.props.fetchUsers();
-    }, 60000);
-  }
   render () {
     const {stats} = this.props;
     return (

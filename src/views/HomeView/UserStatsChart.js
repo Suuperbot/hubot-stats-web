@@ -14,6 +14,9 @@ class UserStatsChart extends React.Component {
     const chartSeries = [];
     const chartData = [];
     _.each(data, (user, userName) => {
+      if (!user.activity || user.activity.length === 0) {
+        return;
+      }
       chartSeries.push({
         field: userName
       });

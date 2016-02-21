@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 
 import TimespanChooser from './TimespanChooser';
 import ChannelChooser from './ChannelChooser';
@@ -6,8 +7,19 @@ import UserStatsPanel from './UserStatsPanel';
 import LinksPanel from './LinksPanel';
 import ImagesPanel from './ImagesPanel';
 
-export class HomeView extends React.Component {
+import {fetchRoomStats} from '../../redux/modules/stats';
 
+export class HomeView extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func
+  };
+
+  componentDidMount () {
+    this.props.dispatch(fetchRoomStats());
+    setInterval(() => {
+      this.props.dispatch(fetchRoomStats());
+    }, 60000);
+  }
   render () {
     return (
       <div className='container'>
@@ -42,4 +54,4 @@ export class HomeView extends React.Component {
   }
 }
 
-export default HomeView;
+export default connect()(HomeView);

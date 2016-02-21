@@ -56,14 +56,12 @@ export const selectGranularityAndFetch = (id) => {
     const {stats} = getState();
     dispatch(selectGranularity(id));
     dispatch(fetchRoomStats(stats.selectedRoom));
-    dispatch(fetchUsers());
   };
 };
 export const selectRoomAndFetch = (room) => {
   return (dispatch) => {
     dispatch(selectRoom(room));
     dispatch(fetchRoomStats(room));
-    dispatch(fetchUsers());
   };
 };
 export const initRoomStats = createAction(INIT_ROOM_STATS, (room, stats) => {
@@ -164,16 +162,28 @@ export const fetchImages = () => {
 
 export const fetchRoomStats = (room) => {
   return (dispatch, getState) => {
+    if (!room) {
+      room = getState().stats.selectedRoom;
+    }
     const {selectedGranularity} = getState().stats;
     const {granularity, count} = _.find(GRANULARITIES, {id: selectedGranularity});
     const url = `http://churchybot.herokuapp.com/hubot/stats/room/${room}` +
-                `?granularity=${granularity}&count=${count}`;
+                `?granularity=${granularity}&count=${count}&loadUsers=1`;
     fetch(url)
       .then((response) => {
         return response.json();
       })
       .then((json) => {
         dispatch(initRoomStats(room, json));
+        // clear all user stats
+        const users = getState().stats.users;
+        for (const user in users) {
+          dispatch(initUserStats(user, {activity: []}));
+        };
+        // now populate users for this channel
+        json.userData.forEach((userData) => {
+          dispatch(initUserStats(userData.user, {activity: userData.data}));
+        });
       });
   };
 };
