@@ -7,7 +7,7 @@ import UserStatsPanel from './UserStatsPanel';
 import LinksPanel from './LinksPanel';
 import ImagesPanel from './ImagesPanel';
 
-import {fetchRoomStats} from '../../redux/modules/stats';
+import {fetchRoomStats, fetchRooms, fetchImages, fetchUrls} from '../../redux/modules/stats';
 
 export class HomeView extends React.Component {
   static propTypes = {
@@ -16,8 +16,14 @@ export class HomeView extends React.Component {
 
   componentDidMount () {
     this.props.dispatch(fetchRoomStats());
+    this.props.dispatch(fetchRooms());
+    this.props.dispatch(fetchImages());
+    this.props.dispatch(fetchUrls());
     setInterval(() => {
       this.props.dispatch(fetchRoomStats());
+      this.props.dispatch(fetchRooms());
+      this.props.dispatch(fetchImages());
+      this.props.dispatch(fetchUrls());
     }, 60000);
   }
   render () {

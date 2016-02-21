@@ -20,12 +20,6 @@ class ChannelChooser extends React.Component {
 
     this.onChange = this.onChange.bind(this);
   }
-  componentDidMount () {
-    this.props.fetchRooms();
-    setInterval(() => {
-      this.props.fetchRooms();
-    }, 60000);
-  }
   onChange (event) {
     this.props.selectRoomAndFetch(event.target.value);
   }

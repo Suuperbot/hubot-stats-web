@@ -17,12 +17,6 @@ class ChannelPanel extends React.Component {
     fetchRoomStats: PropTypes.func,
     selectRoomAndFetch: PropTypes.func
   };
-  componentDidMount () {
-    this.props.fetchRooms();
-    setInterval(() => {
-      this.props.fetchRooms();
-    }, 60000);
-  }
   render () {
     const {stats, selectedRoom} = this.props;
     return (

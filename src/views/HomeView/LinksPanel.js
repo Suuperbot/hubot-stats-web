@@ -8,15 +8,8 @@ const mapStateToProps = (state) => ({
 
 class LinksPanel extends React.Component {
   static propTypes = {
-    urls: PropTypes.array,
-    fetchUrls: PropTypes.func
+    urls: PropTypes.array
   };
-  componentDidMount () {
-    this.props.fetchUrls();
-    setInterval(() => {
-      this.props.fetchUrls();
-    }, 60000);
-  }
   render () {
     const {urls} = this.props;
     return (

@@ -10,15 +10,8 @@ const mapStateToProps = (state) => ({
 
 class ImagesPanel extends React.Component {
   static propTypes = {
-    images: PropTypes.array,
-    fetchImages: PropTypes.func
+    images: PropTypes.array
   };
-  componentDidMount () {
-    this.props.fetchImages();
-    setInterval(() => {
-      this.props.fetchImages();
-    }, 60000);
-  }
   render () {
     const {images} = this.props;
     return (
